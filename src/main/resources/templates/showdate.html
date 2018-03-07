@@ -16,11 +16,13 @@
     <p th:inline="text"><span>  Characteristics: [[${characteristics}]]</span></p>
 
     <p th:inline="text">Your zodiac sign: <b>[[${zodiacsign}]]</b></p>
+    <p th:inline="text"><b>[[${zodiacsign}]] today</b><br/> [[${horoscopetoday}]]</p>
+    <p th:inline="text"><b>[[${zodiacsign}]] tomorrow</b><br/> [[${horoscopetomorrow}]]</p>
     <!--<p th:inline="text">Year: [[${year}]]</p>-->
     <p th:inline="text">Chinese zodiac sign: <b>[[${chinesezodiac}]]</b></p>
     <!--<p th:inline="text">Day: [[${dayformat}]]</p>-->
     <!--<p th:inline="text">Month: [[${monthformat}]]</p>-->
 </div>
-
+<a href="/showhoroscope">Show horoscope</a>
 </body>
 </html>

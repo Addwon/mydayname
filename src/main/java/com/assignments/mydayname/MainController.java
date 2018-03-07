@@ -5,11 +5,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.Year;
+import java.time.ZonedDateTime;
+import java.util.Calendar;
 
 @Controller
 public class MainController {
@@ -48,6 +53,7 @@ public class MainController {
         return "listdates";
     }
 
+    String zodiacSign="";
     @RequestMapping("/showdate/{id}")
     public String showDay(@PathVariable("id") long id,Model model,DateInput dateInput,SimpleDateFormat sdf)
     {
@@ -152,7 +158,7 @@ public class MainController {
         model.addAttribute("dayformat",dayFormat);
         model.addAttribute("monthformat",monthFormat);
         int theday=Integer.parseInt(dayFormat);
-        String zodiacSign="";
+
         switch (Integer.parseInt(monthFormat)) {
             case 1:
                 if (theday < 20) {
@@ -240,7 +246,58 @@ public class MainController {
                 break;
         }
         model.addAttribute("zodiacsign",zodiacSign);
+
+
+        String horourl="http://horoscope-api.herokuapp.com/horoscope/today/"+zodiacSign;
+        RestTemplate restTemplate=new RestTemplate();
+
+       HoroscopeToday horoscopeToday=restTemplate.getForObject(horourl, HoroscopeToday.class);
+        model.addAttribute("horoscopetoday",horoscopeToday.getHoroscope());
+        System.out.println(horoscopeToday.getDate());
+String s=horoscopeToday.getDate();
+        //Testing horoscope for tomorrow
+        SimpleDateFormat sdf4 = new SimpleDateFormat("dd-MM-yyyy");
+        Calendar c=Calendar.getInstance();
+        try { c.setTime(sdf.parse(horoscopeToday.getDate()));
+        }
+        catch (ParseException e)
+        {
+            System.out.println("Parse error");
+        }
+        c.add(Calendar.DATE,1);
+        s=sdf.format(c.getTime());
+        horoscopeToday.setDate(s);
+        System.out.println(s);
+        horoscopeToday=restTemplate.getForObject(horourl, HoroscopeToday.class);
+        model.addAttribute("horoscopetomorrow",horoscopeToday.getHoroscope());
+      //  horoscopeToday.setBdate(horoscopeToday.getBdate());
+//        System.out.println(horoscopeToday.getValue().toString());
+
+//-------------------------------------------------------------------------------
+       /*SimpleDateFormat sdf4 = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c=Calendar.getInstance();
+        c.setTime(dateInput.getIndate());
+        c.add(Calendar.DATE,1);
+        dateInput.setIndate(c.getTime());
+        //horoscopeToday.setBdate(c.getTime());
+        //horoscopeToday=new HoroscopeToday();
+        horoscopeToday.setBdate(c.getTime());
+        horoscopeToday=restTemplate.getForObject(horourl, HoroscopeToday.class);
+        horoscopeToday.setBdate(horoscopeToday.getBdate());*/
+
+//        System.out.println(horoscopeToday.getValue().toString());
+
         return "showdate";
+    }
+
+    @RequestMapping("/showhoroscope")
+    public @ResponseBody String showIndex(){
+        String horourl="http://horoscope-api.herokuapp.com/horoscope/today/"+zodiacSign;
+        RestTemplate restTemplate=new RestTemplate();
+        HoroscopeToday horoscopeToday=restTemplate.getForObject(horourl, HoroscopeToday.class);
+//        System.out.println(horoscopeToday.getValue().toString());
+        //model.addAttribute("horoscopetoday",horoscopeToday.getHoroscope());
+        return horoscopeToday.getHoroscope();
     }
 }
 
