@@ -58,42 +58,43 @@ public class MainController {
         String month=sdf.format(dateInput.getIndate());
         String femalename="";
         String malename="";
+        String characteristics="";
 
         switch(day){
             case "Monday":
                 femalename=FemaleNames.Adjoa.toString();
                 malename=MaleNames.Kojo.toString();
-                // day+=": "+FemaleNames.Adjoa+" "+MaleNames.Kojo;
+                characteristics="Calm,peaceful";
                 break;
             case "Tuesday":
                 femalename=FemaleNames.Abena.toString();
                 malename=MaleNames.Kwabena.toString();
-                //day+=": "+FemaleNames.Abena+" "+MaleNames.Kwabena;
+                characteristics="Warrior, fierce, compassionate";
                 break;
             case "Wednesday":
                 femalename=FemaleNames.Akua.toString();
                 malename=MaleNames.Kweku.toString();
-                //day+=": "+FemaleNames.Akua+" "+MaleNames.Kweku;
+                characteristics=" Advocate, controlling";
                 break;
             case "Thursday":
                 femalename=FemaleNames.Yaa.toString();
                 malename=MaleNames.Yaw.toString();
-                //day+=": "+FemaleNames.Yaa+" "+MaleNames.Yaw;
+                characteristics="Confrontational, aggressive";
                 break;
             case "Friday":
                 femalename=FemaleNames.Afua.toString();
                 malename=MaleNames.Kofi.toString();
-                //day+=": "+FemaleNames.Afua+" "+MaleNames.Kofi;
+                characteristics="Adventurous, creative, innovative";
                 break;
             case "Saturday":
                 femalename=FemaleNames.Ama.toString();
                 malename=MaleNames.Kwame.toString();
-                //day+=": "+FemaleNames.Ama+" "+MaleNames.Kwame;
+                characteristics="The ancient wise one.";
                 break;
             case "Sunday":
                 femalename=FemaleNames.Akosua.toString();
                 malename=MaleNames.Kwesi.toString();
-                //day+=": "+FemaleNames.Akosua+" "+MaleNames.Kwesi;
+                characteristics="Born leader, guide, protector";
                 break;
             default:day="Invalid month";
                 break;
@@ -104,6 +105,7 @@ public class MainController {
         model.addAttribute("month",month);
         model.addAttribute("femalename",femalename);
         model.addAttribute("malename",malename);
+        model.addAttribute("characteristics",characteristics);
 
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy");
         String yearFormat=sdf1.format(dateInput.getIndate());
