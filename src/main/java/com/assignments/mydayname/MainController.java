@@ -9,6 +9,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
+import java.time.Year;
 
 @Controller
 public class MainController {
@@ -34,8 +35,8 @@ public class MainController {
             return "dateform";
         }
         else{
-            dateInputRepository.save(dateInput);
 
+            dateInputRepository.save(dateInput);
             return "redirect:/";
         }
     }
@@ -46,21 +47,44 @@ public class MainController {
         dateInput=dateInputRepository.findById(id);
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
         String day=sdf.format(dateInput.getIndate());
+        String femalename="";
+        String malename="";
 
         switch(day){
-            case "Monday":day+=": "+FemaleNames.Adjoa+" "+MaleNames.Kojo;
+            case "Monday":
+                femalename=FemaleNames.Adjoa.toString();
+                malename=MaleNames.Kojo.toString();
+                // day+=": "+FemaleNames.Adjoa+" "+MaleNames.Kojo;
                 break;
-            case "Tuesday":day+=": "+FemaleNames.Abena+" "+MaleNames.Kwabena;
+            case "Tuesday":
+                femalename=FemaleNames.Abena.toString();
+                malename=MaleNames.Kwabena.toString();
+                //day+=": "+FemaleNames.Abena+" "+MaleNames.Kwabena;
                 break;
-            case "Wednesday":day+=": "+FemaleNames.Akua+" "+MaleNames.Kweku;
+            case "Wednesday":
+                femalename=FemaleNames.Akua.toString();
+                malename=MaleNames.Kweku.toString();
+                //day+=": "+FemaleNames.Akua+" "+MaleNames.Kweku;
                 break;
-            case "Thursday":day+=": "+FemaleNames.Yaa+" "+MaleNames.Yaw;
+            case "Thursday":
+                femalename=FemaleNames.Yaa.toString();
+                malename=MaleNames.Yaw.toString();
+                //day+=": "+FemaleNames.Yaa+" "+MaleNames.Yaw;
                 break;
-            case "Friday":day+=": "+FemaleNames.Afua+" "+MaleNames.Kofi;
+            case "Friday":
+                femalename=FemaleNames.Afua.toString();
+                malename=MaleNames.Kofi.toString();
+                //day+=": "+FemaleNames.Afua+" "+MaleNames.Kofi;
                 break;
-            case "Saturday":day+=": "+FemaleNames.Ama+" "+MaleNames.Kwame;
+            case "Saturday":
+                femalename=FemaleNames.Ama.toString();
+                malename=MaleNames.Kwame.toString();
+                //day+=": "+FemaleNames.Ama+" "+MaleNames.Kwame;
                 break;
-            case "Sunday":day+=": "+FemaleNames.Akosua+" "+MaleNames.Kwesi;
+            case "Sunday":
+                femalename=FemaleNames.Akosua.toString();
+                malename=MaleNames.Kwesi.toString();
+                //day+=": "+FemaleNames.Akosua+" "+MaleNames.Kwesi;
                 break;
             default:day="Invalid month";
                 break;
@@ -68,7 +92,142 @@ public class MainController {
         }
 
         model.addAttribute("day",day);
-        //model.addAttribute("dateinput",dateInputRepository.findAll());
+        model.addAttribute("femalename",femalename);
+        model.addAttribute("malename",malename);
+
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy");
+        String yearFormat=sdf1.format(dateInput.getIndate());
+        model.addAttribute("year",yearFormat);
+        int yr=Integer.parseInt(yearFormat);
+        int fromYear=yr-4;
+        int toYear=(fromYear/12)*12;
+        int animalCode=fromYear-toYear;
+        String chineseZod="";
+        switch(animalCode){
+            case 0: chineseZod=ChineseZodiac.Rat.toString();
+                break;
+            case 1:chineseZod=ChineseZodiac.Ox.toString();
+                break;
+            case 2:chineseZod=ChineseZodiac.Tiger.toString();
+                break;
+            case 3:chineseZod=ChineseZodiac.Rabbit.toString();
+                break;
+            case 4:chineseZod=ChineseZodiac.Dragon.toString();
+                break;
+            case 5:chineseZod=ChineseZodiac.Snake.toString();
+                break;
+            case 6:chineseZod=ChineseZodiac.Horse.toString();
+                break;
+            case 7:chineseZod=ChineseZodiac.Goat.toString();
+                break;
+            case 8:chineseZod=ChineseZodiac.Monkey.toString();
+                break;
+            case 9:chineseZod=ChineseZodiac.Rooster.toString();
+                break;
+            case 10:chineseZod=ChineseZodiac.Dog.toString();
+                break;
+            case 11:chineseZod=ChineseZodiac.Pig.toString();
+                break;
+        }
+        model.addAttribute("chinesezodiac",chineseZod);
+
+        SimpleDateFormat sdf2 = new SimpleDateFormat("dd");
+        String dayFormat=sdf2.format(dateInput.getIndate());
+
+        SimpleDateFormat sdf3 = new SimpleDateFormat("MM");
+        String monthFormat=sdf3.format(dateInput.getIndate());
+
+        model.addAttribute("dayformat",dayFormat);
+        model.addAttribute("monthformat",monthFormat);
+        int theday=Integer.parseInt(dayFormat);
+        String zodiacSign="";
+        switch (Integer.parseInt(monthFormat)) {
+            case 1:
+                if (theday < 20) {
+                    zodiacSign=ZodiacSigns.Capricorn.toString();
+                } else {
+                    zodiacSign=ZodiacSigns.Capricorn.toString();
+                }
+                break;
+            case 2:
+                if (theday < 18) {
+                    zodiacSign=ZodiacSigns.Aquarius.toString();
+                } else {
+                    zodiacSign=ZodiacSigns.Pisces.toString();
+                }
+                break;
+            case 3:
+                if (theday < 21) {
+                    zodiacSign=ZodiacSigns.Pisces.toString();
+                } else {
+                    zodiacSign=ZodiacSigns.Aries.toString();
+                }
+                break;
+            case 4:
+                if (theday < 20) {
+                    zodiacSign=ZodiacSigns.Aries.toString();
+                } else {
+                    zodiacSign=ZodiacSigns.Taurus.toString();
+                }
+                break;
+            case 5:
+                if (theday < 21) {
+                    zodiacSign=ZodiacSigns.Taurus.toString();
+                } else {
+                    zodiacSign=ZodiacSigns.Gemini.toString();
+                }
+                break;
+            case 6:
+                if (theday < 21) {
+                    zodiacSign=ZodiacSigns.Gemini.toString();
+                } else {
+                    zodiacSign=ZodiacSigns.Cancer.toString();
+                }
+                break;
+            case 7:
+                if (theday < 23) {
+                    zodiacSign=ZodiacSigns.Cancer.toString();
+                } else {
+                    zodiacSign=ZodiacSigns.Leo.toString();
+                }
+                break;
+            case 8:
+                if (theday < 23) {
+                    zodiacSign=ZodiacSigns.Leo.toString();
+                } else {
+                    zodiacSign=ZodiacSigns.Virgo.toString();
+                }
+                break;
+            case 9:
+                if (theday < 23) { ;
+                    zodiacSign=ZodiacSigns.Virgo.toString();
+                } else {
+                    zodiacSign=ZodiacSigns.Libra.toString();
+                }
+                break;
+            case 10:
+                if (theday < 23) {
+                    zodiacSign=ZodiacSigns.Libra.toString();
+                } else {
+                    zodiacSign=ZodiacSigns.Scorpio.toString();
+                }
+                break;
+            case 11:
+                if (theday < 22) {
+                    zodiacSign=ZodiacSigns.Scorpio.toString();
+                } else {
+                    zodiacSign=ZodiacSigns.Sagittarius.toString();
+                }
+                break;
+            case 12:
+                if (theday < 22) {
+                    zodiacSign=ZodiacSigns.Sagittarius.toString();
+                } else {
+                    zodiacSign=ZodiacSigns.Capricorn.toString();
+                }
+                break;
+        }
+        model.addAttribute("zodiacsign",zodiacSign);
         return "showdate";
     }
 }

@@ -9,16 +9,21 @@
 </head>
 <body>
 <!--<div th:replace="base :: navlinks"></div>-->
-<a htef="/">Home</a>
+<a htef="/">Home</a><br/>
 
 <a href="/dateform">Enter date</a>
 
 
 <div class="container">
-    <p th:inline="text">[[${day}]]</p>
-    <p th:inline="text">Year: [[${year}]]</p>
-    <p th:inline="text">Chinese zodiac sign: [[${chinesezodiac}]]</p>
-
+    <p th:inline="text">You were born on <b>[[${day}]]</b></p>
+    <p th:inline="text"><b>Ghanaian names born on [[${day}]]</b></p>
+    <p th:inline="text"><span>  Female: [[${femalename}]]</span></p>
+    <p th:inline="text"><span>  Male: [[${malename}]]</span></p>
+    <p th:inline="text">Your zodiac sign: <b>[[${zodiacsign}]]</b></p>
+    <!--<p th:inline="text">Year: [[${year}]]</p>-->
+    <p th:inline="text">Chinese zodiac sign: <b>[[${chinesezodiac}]]</b></p>
+    <!--<p th:inline="text">Day: [[${dayformat}]]</p>-->
+    <!--<p th:inline="text">Month: [[${monthformat}]]</p>-->
 </div>
 
 </body>

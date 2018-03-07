@@ -19,7 +19,7 @@
     </div>
     <div class="col-3">
         <label id="labelDate">Enter date:</label>
-        <input type="date" class="form-control" th:field="*{indate}" placeholder="dd/mm/yyyy"/>
+        <input type="date" class="form-control" th:field="*{indate}" placeholder="mm/dd/yyyy"/>
         <span th:if="${#fields.hasErrors('indate')}" th:errors="*{indate}"></span>
     </div>
 
