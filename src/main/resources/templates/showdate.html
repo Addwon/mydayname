@@ -3,19 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <title>Index</title>
-    <!--<link href="/css/stylesheet.css" rel="stylesheet"/>-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
-    <!--<link href="/css/stylesheet.css" rel="stylesheet"/>-->
 </head>
 <body>
-<!--<div th:replace="base :: navlinks"></div>-->
-<a htef="/">Home</a><br/>
-
-<a href="/dateform">Enter date</a>
-
+<div th:replace="base :: navlinks"></div>
 
 <div class="container">
-    <p th:inline="text">You were born on <b>[[${day}]]</b></p>
+    <p th:inline="text">You were born on <b>[[${day}]] [[${month}]] [[${dayformat}]], [[${year}]]</b></p>
     <p th:inline="text"><b>Ghanaian names born on [[${day}]]</b></p>
     <p th:inline="text"><span>  Female: [[${femalename}]]</span></p>
     <p th:inline="text"><span>  Male: [[${malename}]]</span></p>

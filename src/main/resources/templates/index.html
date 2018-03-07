@@ -3,28 +3,10 @@
 <head>
     <meta charset="UTF-8" />
     <title>Index</title>
-    <!--<link href="/css/stylesheet.css" rel="stylesheet"/>-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
-    <!--<link href="/css/stylesheet.css" rel="stylesheet"/>-->
 </head>
 <body>
-<!--<div th:replace="base :: navlinks"></div>-->
-
-<a href="/dateform">Enter date</a><br/>
-
-<div class="container">
-    <table class="table" title="Date" >
-        <thead><tr><th>Date</th></tr></thead>
-        <tbody>
-
-        <tr th:each="dateinput : ${dateinput}" >
-            <td th:text="${dateinput.indate}"></td>
-            <td><a th:href="@{/showdate/{id}(id=${dateinput.id})}">Show day</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+<div th:replace="base :: navlinks"></div>
 
 </body>
 </html>

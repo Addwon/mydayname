@@ -37,16 +37,25 @@ public class MainController {
         else{
 
             dateInputRepository.save(dateInput);
-            return "redirect:/";
+            return "redirect:/listdates";
         }
+    }
+    //List dates
+    @RequestMapping("/listdates")
+    public String listDates(Model model)
+    {
+        model.addAttribute("dateinput",dateInputRepository.findAll());
+        return "listdates";
     }
 
     @RequestMapping("/showdate/{id}")
-    public String showDay(@PathVariable("id") long id,Model model,DateInput dateInput)
+    public String showDay(@PathVariable("id") long id,Model model,DateInput dateInput,SimpleDateFormat sdf)
     {
         dateInput=dateInputRepository.findById(id);
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+        sdf = new SimpleDateFormat("EEEE");
         String day=sdf.format(dateInput.getIndate());
+        sdf=new SimpleDateFormat("MMMM");
+        String month=sdf.format(dateInput.getIndate());
         String femalename="";
         String malename="";
 
@@ -92,6 +101,7 @@ public class MainController {
         }
 
         model.addAttribute("day",day);
+        model.addAttribute("month",month);
         model.addAttribute("femalename",femalename);
         model.addAttribute("malename",malename);
 
